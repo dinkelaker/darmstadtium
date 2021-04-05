@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'eclipse'
+}
+
+apply from: "${rootDir}/gradle/dependencies.gradle"
+
+repositories {
+    mavenLocal()
+
+    maven {
+        url 'https://repo1.maven.org/maven2/'
+    }
+
+    // Use JCenter for resolving dependencies.
+    jcenter()
+}
+
+sourceSets {
+    main {
+        groovy {
+        }
+    }
+    test {
+        groovy {
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+    implementation 'de.tud.stg.tigerseye:core:1.0'
+
+    implementation 'org.codehaus.groovy:groovy-all:1.7.10'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+    testCompileOnly 'junit:junit:4.12'
+    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.3.1'
+}
