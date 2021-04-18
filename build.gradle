@@ -20,10 +20,13 @@ repositories {
 sourceSets {
     main {
         groovy {
+            srcDirs = ['src']
         }
     }
+
     test {
         groovy {
+            srcDirs = ['test']
         }
     }
 }
@@ -33,12 +36,14 @@ test {
 }
 
 dependencies {
-    implementation 'de.tud.stg.tigerseye:core:1.0'
+    implementation group: 'org.codehaus.groovy', name: 'groovy-all', version: '3.0.7'
 
-    implementation 'org.codehaus.groovy:groovy-all:1.7.10'
-
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
-    testCompileOnly 'junit:junit:4.12'
-    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.3.1'
+    implementation 'io.appium:java-client:6.1.0'
+    
+    implementation 'de.tud.stg.tigerseye:core:3.0.0'
+    
+    testImplementation 'io.appium:java-client:6.1.0'
+    
+    testImplementation("junit:junit:4.13")
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.7.1")
 }

@@ -23,3 +23,23 @@ Darmstadtium supports the same platforms as Appium, like iOS, Android, and Windo
 Darmstadtium allows you to write test code for apps on various application platforms from one single codebase. 
 
 
+## Getting Started
+
+Install node.js, Adroid studio, and Appium.
+
+Compile project:
+
+    > gradlew clean build
+    
+Staring Android emulator:
+
+    > adb start-server
+
+Start Appium server:
+
+    > appium
+   
+
+
+
+
