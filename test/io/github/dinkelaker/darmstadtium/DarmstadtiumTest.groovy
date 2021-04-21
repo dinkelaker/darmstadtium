@@ -1,10 +1,12 @@
 package io.github.dinkelaker.darmstadtium;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse
+
 import org.junit.Test;
 
 import java.net.MalformedURLException;
-import java.util.concurrent.TimeUnit;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
@@ -20,19 +22,74 @@ import static io.appium.java_client.touch.offset.ElementOption.element;
 
 import io.github.dinkelaker.darmstadtium.Darmstadtium;
 
-public class DarmstadtiumTest {
+class DarmstadtiumTest {
+    
+    static DEFAULT_TIMEOUT_S = 2;
 
     @Test
-    public void testSomeLibraryMethod() {
+    void testSomeKeywordIsWorking() {
         Darmstadtium classUnderTest = new Darmstadtium();
-        assertTrue("someLibraryMethod should return 'true'", classUnderTest.someLibraryMethod());
+        assertTrue("someLibraryMethod should return 'true'", classUnderTest.someKeyword());
     }
 
     @Test
-    public void testEval() {
+    void testEvalIsWorking() {
         Darmstadtium interpreter = new Darmstadtium();
         interpreter.eval {
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            assertTrue(someKeyword())
+        }
+    }
+
+    @Test
+    void testTimeoutKeyword() {
+        Darmstadtium interpreter = new Darmstadtium();
+        interpreter.eval {
+            timeout(DEFAULT_TIMEOUT_S, SECONDS)
+            assertTrue(someKeyword())
+        }
+    }
+    
+    @Test
+    void testWithinTimeoutIsOK() {
+        Darmstadtium interpreter = new Darmstadtium();
+        interpreter.eval {
+            //set timeout to 1 sec
+            timeout DEFAULT_TIMEOUT_S, SECONDS
+            
+            def flag = false;
+            parallelize {
+                sleepS DEFAULT_TIMEOUT_S * 2
+                flag = true
+            }
+            
+            sleepS DEFAULT_TIMEOUT_S * 3
+            assertTrue(flag)
+        }
+    }
+    
+    @Test
+    void testExceedingTimeoutFails() {
+        Darmstadtium interpreter = new Darmstadtium();
+        interpreter.eval {
+            //set timeout to 10 secs
+            timeout DEFAULT_TIMEOUT_S, SECONDS
+            
+            def flag = false;
+            parallelize {
+                sleepS DEFAULT_TIMEOUT_S * 3
+                flag = true
+            }
+            
+            sleepS DEFAULT_TIMEOUT_S * 2
+            assertFalse(flag)
+        }
+    }
+    
+    @Test
+    void testTimeout() {
+        Darmstadtium interpreter = new Darmstadtium();
+        interpreter.eval {
+            timeout(DEFAULT_TIMEOUT_S, SECONDS)
             driver.findElementByXPath("//android.widget.TextView[@text='Views']").click();
 
             //Tap
@@ -46,4 +103,5 @@ public class DarmstadtiumTest {
             System.out.println(driver.findElementById("android:id/title").isDisplayed());
         }
     }
+
 }

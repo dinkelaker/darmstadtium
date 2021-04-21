@@ -14,6 +14,9 @@ import io.appium.java_client.remote.MobileCapabilityType;
 import de.tud.stg.tigerseye.Interpreter;
 import de.tud.stg.tigerseye.DSL;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+import io.github.dinkelaker.darmstadtium.testenv.Timeout
+
 class Darmstadtium extends Interpreter implements DSL {
     
     AndroidDriver<AndroidElement> driver;
@@ -36,9 +39,30 @@ class Darmstadtium extends Interpreter implements DSL {
         return driver;
     }
 
-    boolean someLibraryMethod() {
+    boolean someKeyword() {
         return true;
     }
     
+    Timeout timeout(long value, TimeUnit unit) {
+        Timeout timeout = new Timeout(value: value, unit: unit)
+        driver.manage().timeouts().implicitlyWait(value, unit);
+        return timeout;
+    } 
+
+    Timeout timeoutS(long value) {
+        timeout(value, SECONDS);
+    }
+        
+    void sleepMs(long milliseconds) {
+        sleep(milliseconds);
+    }
     
+    void sleepS(long seconds) {
+        sleep(seconds * 1000);
+    }
+    
+    void parallelize(Closure logic) {
+        Thread.start(logic);
+    }
+
 }
