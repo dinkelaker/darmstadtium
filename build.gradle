@@ -40,7 +40,7 @@ dependencies {
 
     implementation 'io.appium:java-client:6.1.0'
     
-    implementation 'de.tud.stg.tigerseye:core:3.0.0'
+    implementation 'de.tud.stg.tigerseye:core:3.0.1'
     
     testImplementation 'io.appium:java-client:6.1.0'
     

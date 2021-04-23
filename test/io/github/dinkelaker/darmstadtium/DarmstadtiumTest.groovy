@@ -58,6 +58,7 @@ class DarmstadtiumTest {
             
             def flag = false;
             parallelize {
+                // process duration is shorter than waiting time at the end
                 sleepS DEFAULT_TIMEOUT_S * 2
                 flag = true
             }
@@ -71,11 +72,12 @@ class DarmstadtiumTest {
     void testExceedingTimeoutFails() {
         Darmstadtium interpreter = new Darmstadtium();
         interpreter.eval {
-            //set timeout to 10 secs
+            //set timeout 
             timeout DEFAULT_TIMEOUT_S, SECONDS
             
             def flag = false;
             parallelize {
+                // process duration is longer than waiting time at the end
                 sleepS DEFAULT_TIMEOUT_S * 3
                 flag = true
             }
