@@ -24,7 +24,8 @@ class Darmstadtium extends Interpreter implements DSL {
         driver = createDriver();
         bodyDelegate = new BBCombiner([this, 
             new TimeDSL(driver), 
-            new ConcurrencyDSL()] as Set);        
+            new ConcurrencyDSL(),
+            new GesturesDSL(driver)] as Set);        
     }
 
     private static  AndroidDriver<AndroidElement> createDriver() throws MalformedURLException {
