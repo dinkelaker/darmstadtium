@@ -24,7 +24,7 @@ import io.github.dinkelaker.darmstadtium.Darmstadtium;
 
 class DarmstadtiumTest {
 
-    static DEFAULT_TIMEOUT_S = 2;
+    static DEFAULT_TIMEOUT_S = 3;
 
     @Test
     void testSomeKeywordIsWorking() {
@@ -98,12 +98,31 @@ class DarmstadtiumTest {
             WebElement expandList = driver.findElementByXPath("//android.widget.TextView[@text='Expandable Lists']");
             tap expandList
             driver.findElementByXPath("//android.widget.TextView[@text='1. Custom Adapter']").click();
-            WebElement pn=  driver.findElementByXPath("//android.widget.TextView[@text='People Names']");
+            WebElement pn = driver.findElementByXPath("//android.widget.TextView[@text='People Names']");
 
             longPress pn
             System.out.println(driver.findElementById("android:id/title").isDisplayed());
         }
     }
+    
+    @Test
+    void testLocator() {
+        Darmstadtium interpreter = new Darmstadtium();
+        interpreter.eval {
+            timeout(DEFAULT_TIMEOUT_S, SECONDS)
+            byXPath("//android.widget.TextView[@text='Views']").click()
+
+            //Tap
+            WebElement expandList = byXPath "//android.widget.TextView[@text='Expandable Lists']"
+            tap expandList
+            byXPath("//android.widget.TextView[@text='1. Custom Adapter']").click()
+            WebElement pn = byXPath "//android.widget.TextView[@text='People Names']"
+
+            longPress pn
+            System.out.println(byId("android:id/title").isDisplayed())
+        }
+    }
+
 
 //    @Test
 //    void testTimeout() {
