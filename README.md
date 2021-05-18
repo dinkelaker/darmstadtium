@@ -25,7 +25,7 @@ Darmstadtium allows you to write test code for apps on various application platf
 
 ## Getting Started
 
-Install node.js, Adroid studio, and Appium.
+Install node.js, Android studio, and Appium.
 
 Compile project:
 
@@ -35,11 +35,35 @@ Staring Android emulator:
 
     > adb start-server
 
+List available devices for emulation (or if none present install an AVD with Android Studio):
+
+    > emulator -list-avds
+
+Select one name for the list, e.g. 'Pixel_2_API_29', 
+and connect the emulator to the virtual device via its name:
+
+    > emulator -avd Pixel_2_API_29 -netdelay none -netspeed full
+
 Start Appium server:
 
     > appium
+
+Then execute DarmstadtiumTest.groovy:
+
+    > gradlew test
    
+## IDE
 
+Recommended IDE is IntelliJ's IDEA Community Edition.
 
+The project support also Eclipse, but the gradle and groovy plugins on that IDE platform are very unstable. 
 
+Compile project:
 
+    > gradlew cleanEclipse eclipse
+
+## Publish project 
+
+To install the component group for customizations of the core library to be used in dependent projects execute:
+
+    > gradlew clean publishToMavenLocal
