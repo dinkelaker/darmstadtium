@@ -21,7 +21,7 @@ class LocatorDSL implements DSL {
     List<MobileElement> listById(String id) {
         return (List<MobileElement>) driverForLocating.findElementsById(id);
     }
-    
+
     // *** Accessibility ID ***
     MobileElement byAccessibilityId(String id) {
         return (MobileElement) driverForLocating.findElementByAccessibilityId(id);
@@ -30,7 +30,7 @@ class LocatorDSL implements DSL {
     MobileElement byAccessId(String id) {
         return byAccessibilityId(id);
     }
-    
+
     List<MobileElement> listByAccessibilityId(String id) {
         return (List<MobileElement>) driverForLocating.findElementsByAccessibilityId(id);
     }
@@ -43,9 +43,13 @@ class LocatorDSL implements DSL {
     MobileElement byXPath(String xpath) {
         return (MobileElement) driverForLocating.findElementByXPath(xpath);
     }
-    
+
     List<MobileElement> listByXPath(String xpath) {
         return (List<MobileElement>) driverForLocating.findElementsByXPath(xpath);
     }
-    
+
+    MobileElement byText(String text) {
+        return byXPath("//android.widget.TextView[@text='$text']")
+    }
+
 }

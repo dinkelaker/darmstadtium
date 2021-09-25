@@ -24,7 +24,7 @@ import io.github.dinkelaker.darmstadtium.Darmstadtium;
 
 class DarmstadtiumTest {
 
-    static DEFAULT_TIMEOUT_S = 3;
+    static DEFAULT_TIMEOUT_S = 4;
 
     @Test
     void testSomeKeywordIsWorking() {
@@ -104,7 +104,7 @@ class DarmstadtiumTest {
             System.out.println(driver.findElementById("android:id/title").isDisplayed());
         }
     }
-    
+
     @Test
     void testLocator() {
         Darmstadtium interpreter = new Darmstadtium();
@@ -120,6 +120,24 @@ class DarmstadtiumTest {
 
             longPress pn
             System.out.println(byId("android:id/title").isDisplayed())
+        }
+    }
+
+    @Test
+    void testAutowiring() {
+        Darmstadtium interpreter = new Darmstadtium();
+        interpreter.eval {
+            timeout(DEFAULT_TIMEOUT_S, SECONDS)
+            Views.click()
+
+            //Tap
+            WebElement expandList = byText 'Expandable Lists'
+            tap expandList
+            (byText('1. Custom Adapter')).click()
+            WebElement pn = byText 'People Names'
+
+            longPress pn
+            title.isDisplayed()
         }
     }
 
